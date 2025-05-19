@@ -1,20 +1,17 @@
 package org.example;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Table {
 
     private int numRows;
     private int numColumns;
 
-    private HashMap<String, List<Object>> columns;
-    private List<List<Object>> rows;
+    private final LinkedHashMap<String, List<Object>> columns;
+    private final List<List<Object>> rows;
 
-    public Table(String name, HashMap<String, Datatype> givenColumns) {
-        columns = new HashMap<>();
+    public Table(String name, LinkedHashMap<String, Datatype> givenColumns) {
+        columns = new LinkedHashMap<>();
         rows = new ArrayList<List<Object>>();
 
         for(String columnName : givenColumns.keySet()) {
