@@ -21,12 +21,17 @@ public class Table {
                 case INTEGER:
                     columns.put(columnName, (List) new ArrayList<Integer>());
                 break;
+                case STRING:
+                    columns.put(columnName, (List) new ArrayList<String>());
+                break;
             }
         }
     }
 
     private void updateRows() {
-        for(int i = 0; i < columns.size(); i++) {
+        rows.clear();
+        int length = columns.get(columns.keySet().toArray()[0]).size();
+        for(int i = 0; i < length; i++) {
             ArrayList row = new ArrayList<Object>();
 
             for(List column : columns.values()){
@@ -38,9 +43,10 @@ public class Table {
     }
 
     public void print() {
-        Object[][] table = new Object[rows.size()][];
+        Object[][] table = new Object[rows.size()+1][];
+        table[0] = columns.keySet().toArray();
         for(List row : rows) {
-            table[rows.indexOf(row)] = row.toArray();
+            table[rows.indexOf(row)+1] = row.toArray();
         }
 
         String format = "";
