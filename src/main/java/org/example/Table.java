@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -23,6 +24,9 @@ public class Table {
                 break;
                 case STRING:
                     columns.put(columnName, (List) new ArrayList<String>());
+                break;
+                case DATE:
+                    columns.put(columnName, (List) new ArrayList<Date>());
                 break;
             }
         }
