@@ -10,9 +10,13 @@ public class Table {
     private final LinkedHashMap<String, List<Object>> columns;
     private final List<List<Object>> rows;
 
+    public String name;
+
     public Table(String name, LinkedHashMap<String, Datatype> givenColumns) {
         columns = new LinkedHashMap<>();
         rows = new ArrayList<List<Object>>();
+
+        this.name = name;
 
         for(String columnName : givenColumns.keySet()) {
             switch (givenColumns.get(columnName)){
@@ -44,10 +48,26 @@ public class Table {
     }
 
     public void print() {
-        Object[][] table = new Object[rows.size()+1][];
-        table[0] = columns.keySet().toArray();
+        Object[][] table = new Object[rows.size()+2][];
+        table[0] = new Object[columns.keySet().size()];
+        table[1] = columns.keySet().toArray();
+
+        if((columns.keySet().size())%2==1){
+            for(int i = 0; i < columns.keySet().size(); i++){
+                if(i!=(columns.keySet().size()+1)/2){
+                    table[0][i] = "";
+                } else table[0][i] = name;
+            }
+        } else {
+            for(int i = 0; i < columns.keySet().size(); i++){
+                if(i!=(columns.keySet().size())/2){
+                    table[0][i] = "";
+                } else table[0][i] = name;
+            }
+        }
+
         for(List row : rows) {
-            table[rows.indexOf(row)+1] = row.toArray();
+            table[rows.indexOf(row)+2] = row.toArray();
         }
 
         String format = "";
@@ -68,6 +88,7 @@ public class Table {
             List newColumn = columns.get(columnName);
             newColumn.add(o);
             columns.put(columnName, newColumn);
+
         }
 
         updateRows();

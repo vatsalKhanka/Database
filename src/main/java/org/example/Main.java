@@ -6,6 +6,8 @@ import java.util.*;
 public class Main {
 
     public static void main(String[] args) {
+        Database.init();
+
         LinkedHashMap<String, Datatype> givenColumns = new LinkedHashMap<>();
         givenColumns.put("RollNo", Datatype.INTEGER);
         givenColumns.put("Marks", Datatype.INTEGER);
