@@ -7,4 +7,5 @@ public enum Datatype {
 
     public static final String T_STRING = "str";
     public static final String T_INT = "int";
+    public static final String T_DATE = "date";
 }

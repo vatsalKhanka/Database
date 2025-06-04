@@ -10,9 +10,13 @@ public class Table {
     private final LinkedHashMap<String, List<Object>> columns;
     private final List<List<Object>> rows;
 
+    private final LinkedHashMap<String, Datatype> tableStructure;
+
     public String name;
 
     public Table(String name, LinkedHashMap<String, Datatype> givenColumns) {
+        tableStructure = givenColumns;
+
         columns = new LinkedHashMap<>();
         rows = new ArrayList<List<Object>>();
 
@@ -48,6 +52,11 @@ public class Table {
     }
 
     public void print() {
+        if(rows.isEmpty()){
+            System.out.println(name + " is an empty table, with the structure " + tableStructure);
+            return;
+        }
+
         Object[][] table = new Object[rows.size()+2][];
         table[0] = new Object[columns.keySet().size()];
         table[1] = columns.keySet().toArray();
@@ -88,7 +97,6 @@ public class Table {
             List newColumn = columns.get(columnName);
             newColumn.add(o);
             columns.put(columnName, newColumn);
-
         }
 
         updateRows();

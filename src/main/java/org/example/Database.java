@@ -11,14 +11,19 @@ public class Database {
     }
 
     public static void insertIntoTable(String name, ArrayList<Object> values) {
+        Table table = getTable(name);
+        table.insertValues(values);
+        System.out.print("Successfully inserted values " + values + " into " + name);
+    }
+
+    public static Table getTable(String name) {
         for(Table table : tables) {
             if(table.name.equalsIgnoreCase(name)){
-                System.out.println(String.valueOf(values));
-                table.insertValues(values);
-                table.print();
-                return;
+                return table;
             }
         }
+
+        return null;
     }
 
 }
