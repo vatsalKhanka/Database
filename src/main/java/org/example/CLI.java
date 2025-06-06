@@ -14,6 +14,7 @@ public class CLI {
         while(true) {
             System.out.print("database> ");
             executeCommand(inputScanner.next());
+            Main.writeToDatabase();
         }
     }
 
@@ -29,7 +30,7 @@ public class CLI {
             commandFound = true;
         }
 
-        Pattern insertTable = Pattern.compile("(?i)insert\\s+into\\s+(\\w+)+\\((.*?)\\)");
+        Pattern insertTable = Pattern.compile("(?i)insert\\s+into\\s+(\\w+)+\\svalues\\((.*?)\\)");
         if(insertTable.matcher(command).matches()) {
             insertValues(command);
             commandFound = true;
@@ -41,9 +42,15 @@ public class CLI {
             commandFound = true;
         }
 
+        Pattern deleteTable = Pattern.compile("(?i)delete\\s+table\\s+(\\w+)");
+        if(deleteTable.matcher(command).matches()){
+            deleteTable(command);
+            commandFound = true;
+        }
+
         if(command.equalsIgnoreCase("show tables")) {
             System.out.println("Tables currently in this database are: ");
-            for(Table table : Database.tables) {
+            for(Table table : Main.database.tables) {
                 System.out.println(table.name);
             }
             commandFound = true;
@@ -78,13 +85,13 @@ public class CLI {
         }
 
         Table table = new Table(matcher.group(1),tableStructure);
-        Database.tables.add(table);
+        Main.database.tables.add(table);
 
         System.out.print("Successfully created table " + matcher.group(1) + " with rows " + tableStructure);
     }
 
     public static void insertValues(String command) {
-        Pattern insert = Pattern.compile("(?i)insert\\s+into\\s+(\\w+)+\\((.*?)\\)");
+        Pattern insert = Pattern.compile("(?i)insert\\s+into\\s+(\\w+)+\\svalues\\((.*?)\\)");
         Matcher matcher = insert.matcher(command);
         matcher.matches();
 
@@ -106,7 +113,7 @@ public class CLI {
         }
 
         String name = matcher.group(1);
-        Database.insertIntoTable(name, values);
+        Main.database.insertIntoTable(name, values);
     }
 
     public static void printTable(String command) {
@@ -114,7 +121,15 @@ public class CLI {
         Matcher matcher = printTable.matcher(command);
         matcher.matches();
 
-        Database.getTable(matcher.group(1)).print();
+        Main.database.getTable(matcher.group(1)).print();
+    }
+
+    public static void deleteTable(String command) {
+        Pattern deleteTable = Pattern.compile("(?i)delete\\s+table\\s+(\\w+)");
+        Matcher matcher = deleteTable.matcher(command);
+        matcher.matches();
+
+        Main.database.deleteTable(matcher.group(1));
     }
 
     public static boolean isNumeric(String str) {

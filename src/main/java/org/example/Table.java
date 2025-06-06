@@ -1,8 +1,11 @@
 package org.example;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Table {
+public class Table implements Serializable {
+
+    private static final long serialVersionUID = 652968509826775769L;
 
     private int numRows;
     private int numColumns;
