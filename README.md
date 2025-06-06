@@ -1,4 +1,4 @@
-# DataForge – A Command-Line Java Database Engine
+# Small DB – A Command-Line Java Database Engine
 
 *An internship project designed to explore the fundamentals of database systems using pure Java.*
 
@@ -6,7 +6,7 @@
 
 ## Project Overview
 
-**DataForge** is a lightweight, command-line database engine built entirely in Java. Developed as part of an internship, this project serves as a hands-on exploration into the inner workings of database systems. It allows users to:
+**Small DB** is a lightweight, command-line database engine built entirely in Java. Developed as part of an internship, this project serves as a hands-on exploration into the inner workings of database systems. It allows users to:
 
 - Create and delete tables  
 - Insert, update, and delete records  
